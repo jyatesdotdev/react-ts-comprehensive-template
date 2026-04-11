@@ -1,3 +1,10 @@
+/**
+ * Hono POC Server
+ * 
+ * This is the main backend entry point. It serves:
+ * 1. REST API routes under /api/*
+ * 2. WebSocket upgrades under /ws
+ */
 import { serve } from '@hono/node-server'
 import { createNodeWebSocket } from '@hono/node-ws'
 import { Hono } from 'hono'
@@ -8,10 +15,16 @@ const app = new Hono()
 // Create Node WebSocket helper
 const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app })
 
-// Mount API routes under /api
+/**
+ * API Route Mounting
+ * All logic inside server/routes.ts is prefixed with /api
+ */
 app.route('/api', api)
 
-// WebSocket endpoint for POCs
+/**
+ * Global WebSocket Handler
+ * Forwards messages back to the client (echo) as a basic connectivity test.
+ */
 app.get(
   '/ws',
   upgradeWebSocket((c) => {

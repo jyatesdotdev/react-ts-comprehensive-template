@@ -35,10 +35,6 @@ const POCCard = styled(Link).attrs({
   className: 'group p-6 border border-gray-100 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl hover:border-blue-400 transition-all duration-300 flex flex-col gap-3'
 })``
 
-const LinkGrid = styled.div.attrs({
-  className: 'grid grid-cols-2 sm:grid-cols-4 gap-4'
-})``
-
 const LinkCard = styled.a.attrs({
   className: 'p-3 border border-gray-100 rounded-xl hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 text-center text-sm font-bold text-gray-600'
 })``

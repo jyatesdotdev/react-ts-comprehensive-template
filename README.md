@@ -12,6 +12,25 @@ A modern, extensible template for rapid prototyping and technical Proof of Conce
 - **Styled Components** for scoped, dynamic styling
 - **React Router 7** for navigation
 
+## Documentation
+
+For a detailed look at the project's design philosophy and technical setup, see [ARCHITECTURE.md](./ARCHITECTURE.md).
+
+## Project Structure
+
+```text
+react-ts-template/
+├── e2e/                # Playwright end-to-end tests & screenshots
+├── scripts/            # Automation scripts & POC templates
+├── server/             # Hono backend source code
+│   └── pocs/           # Backend modules for specific experiments
+├── src/                # React frontend source code
+│   ├── components/     # Shared UI components
+│   ├── config/         # Central POC registration & metadata
+│   └── pages/          # Individual POC page components
+└── playwright.config.ts # E2E test configuration
+```
+
 ## Getting Started
 
 1. Install dependencies:

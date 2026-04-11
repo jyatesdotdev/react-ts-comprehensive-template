@@ -73,14 +73,26 @@ const SwitcherItem = styled(Link).attrs<{ $active?: boolean }>((props) => ({
 }))<{ $active?: boolean }>``
 
 interface POCLayoutProps {
+  /** The primary heading displayed at the top of the POC. */
   title: string
+  /** An optional description or context for the experiment. */
   subtitle?: string
+  /** The text displayed inside the status badge (e.g., "POC", "WIP"). */
   badge?: string
-  badgeType?: string
+  /** The semantic type of the badge, which determines its color scheme. */
+  badgeType?: 'WIP' | 'POC' | 'STABLE' | 'Template'
+  /** The main content of the experiment. */
   children: React.ReactNode
+  /** Optional ID used to link to the corresponding backend API endpoint. */
   pocId?: string
 }
 
+/**
+ * The standard layout wrapper for all Proof of Concept (POC) pages.
+ * 
+ * It provides a consistent header with breadcrumbs, an experiment switcher, 
+ * automated backend API linking, and a responsive container for experimental content.
+ */
 export default function POCLayout({ title, subtitle, badge, badgeType, children, pocId }: POCLayoutProps) {
   const [copied, setCopied] = useState(false)
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false)

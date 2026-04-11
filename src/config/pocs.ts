@@ -1,14 +1,25 @@
 import React from 'react'
 
+/**
+ * Metadata definition for a Proof of Concept (POC).
+ */
 export interface POCMetadata {
+  /** Unique identifier for the POC (used for routing and API links). */
   id: string
+  /** Display name of the experiment. */
   name: string
+  /** URL path where the POC can be accessed. */
   path: string
+  /** The React component to render (usually lazy-loaded). */
   component: React.LazyExoticComponent<React.ComponentType<any>> | React.ComponentType<any>
+  /** Optional text for the status badge. */
   badge?: string
+  /** Semantic type of the badge for styling purposes. */
   badgeType?: 'WIP' | 'POC' | 'STABLE' | 'Template'
+  /** A brief summary of what the POC demonstrates. */
   description: string
-  category?: 'Graphics' | 'Network' | 'State' | 'Utility'
+  /** Category for logical grouping in the navigation menu. */
+  category?: 'Graphics' | 'Network' | 'State' | 'Utility' | 'General'
 }
 
 // Lazy load POCs to keep the main bundle small
@@ -22,6 +33,12 @@ const TemplatePOC = React.lazy(() => import('../pages/pocs/Template'))
 const DashboardTestPOC = React.lazy(() => import('../pages/pocs/DashboardTest'))
 const RalphExperimentPOC = React.lazy(() => import('../pages/pocs/RalphExperiment'))
 
+/**
+ * Central registry of all active Proof of Concepts.
+ * 
+ * Adding a new entry here automatically registers it for routing 
+ * and adds it to the global navigation "Experiments" dropdown.
+ */
 export const POC_CONFIG: POCMetadata[] = [
   {
     id: 'ralph-experiment',

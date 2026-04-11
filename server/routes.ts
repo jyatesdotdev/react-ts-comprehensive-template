@@ -1,8 +1,19 @@
+/**
+ * Main API Router
+ * 
+ * All routes defined here are automatically mounted under /api in the main app.
+ * To add a new experiment-specific API:
+ * 1. Create a module in server/pocs/
+ * 2. Mount it using api.route('/poc-id', module)
+ */
 import { Hono } from 'hono'
 
 const api = new Hono()
 
-// Standard API routes
+/**
+ * Health Check / Hello Route
+ * Useful for verifying backend connectivity.
+ */
 api.get('/hello', (c) => {
   return c.json({
     message: 'Hello from the Hono POC Server!',
@@ -12,11 +23,8 @@ api.get('/hello', (c) => {
 })
 
 /**
- * POC Specific Routes
- * To add a new POC server module:
- * 1. Create a file in server/pocs/ (e.g., server/pocs/my-new-poc.ts)
- * 2. Import it here
- * 3. Mount it using api.route('/my-new-poc', myNewPoc)
+ * Registered POC Routes
+ * These match the IDs used in the frontend configuration.
  */
 import hello from './pocs/hello'
 import todo from './pocs/todo'
@@ -28,7 +36,9 @@ api.route('/pocs/todo', todo)
 api.route('/pocs/dashboard-test', dashboardTest)
 api.route('/pocs/ralph-experiment', ralphExperiment)
 
-// Placeholder for WebRTC signaling (in a real app, this might be WebSocket)
+/**
+ * Shared Utilities
+ */
 api.get('/webrtc/ice-servers', (c) => {
   return c.json({
     iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
