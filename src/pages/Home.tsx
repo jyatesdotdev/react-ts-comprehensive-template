@@ -123,18 +123,46 @@ export default function Home() {
 
       <Section>
         <SectionTitle>
-          <Badge>Stack</Badge> Core Technologies
+          <Badge>Stack</Badge> Full Technology Stack
         </SectionTitle>
-        <LinkGrid>
-          <LinkCard href="https://react.dev" target="_blank">React 19</LinkCard>
-          <LinkCard href="https://vite.dev" target="_blank">Vite</LinkCard>
-          <LinkCard href="https://hono.dev" target="_blank">Hono</LinkCard>
-          <LinkCard href="https://typescriptlang.org" target="_blank">TS 6.0</LinkCard>
-          <LinkCard href="https://vitest.dev" target="_blank">Vitest</LinkCard>
-          <LinkCard href="https://playwright.dev" target="_blank">Playwright</LinkCard>
-          <LinkCard href="https://styled-components.com" target="_blank">Styled</LinkCard>
-          <LinkCard href="https://tailwindcss.com" target="_blank">TW 4</LinkCard>
-        </LinkGrid>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Core Frameworks</h4>
+            <div className="flex flex-col gap-2">
+              <LinkCard href="https://react.dev" target="_blank">React 19</LinkCard>
+              <LinkCard href="https://vite.dev" target="_blank">Vite 8</LinkCard>
+              <LinkCard href="https://hono.dev" target="_blank">Hono 4</LinkCard>
+              <LinkCard href="https://typescriptlang.org" target="_blank">TypeScript 6.0</LinkCard>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">UI & Styling</h4>
+            <div className="flex flex-col gap-2">
+              <LinkCard href="https://tailwindcss.com" target="_blank">Tailwind CSS 4</LinkCard>
+              <LinkCard href="https://styled-components.com" target="_blank">Styled Components</LinkCard>
+              <LinkCard href="https://reactrouter.com" target="_blank">React Router 7</LinkCard>
+              <LinkCard href="https://lucide.dev" target="_blank">Lucide Icons</LinkCard>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Testing & QA</h4>
+            <div className="flex flex-col gap-2">
+              <LinkCard href="https://vitest.dev" target="_blank">Vitest</LinkCard>
+              <LinkCard href="https://playwright.dev" target="_blank">Playwright</LinkCard>
+              <LinkCard href="https://testing-library.com" target="_blank">Testing Library</LinkCard>
+              <LinkCard href="https://eslint.org" target="_blank">ESLint 9</LinkCard>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3">Specialized Tech</h4>
+            <div className="flex flex-col gap-2">
+              <LinkCard href="https://threejs.org" target="_blank">Three.js (WebGL)</LinkCard>
+              <LinkCard href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API" target="_blank">WebSockets</LinkCard>
+              <LinkCard href="https://webrtc.org" target="_blank">WebRTC (P2P)</LinkCard>
+              <LinkCard href="https://hono.dev/docs/helpers/websocket" target="_blank">Hono WS Helper</LinkCard>
+            </div>
+          </div>
+        </div>
       </Section>
 
       <Section>
