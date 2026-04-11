@@ -72,18 +72,6 @@ const SwitcherItem = styled(Link).attrs<{ $active?: boolean }>((props) => ({
   }`
 }))<{ $active?: boolean }>``
 
-const BlueprintNav = styled.div.attrs({
-  className: 'w-full max-w-5xl flex gap-2 overflow-x-auto justify-center pb-4 mb-4 scrollbar-hide'
-})``
-
-const BlueprintLink = styled(Link).attrs<{ $active?: boolean }>((props) => ({
-  className: `px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap border ${
-    props.$active 
-      ? 'bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200' 
-      : 'bg-white border-gray-100 text-gray-400 hover:text-blue-600 hover:border-blue-200'
-  }`
-}))<{ $active?: boolean }>``
-
 interface POCLayoutProps {
   title: string
   subtitle?: string
@@ -116,7 +104,6 @@ export default function POCLayout({ title, subtitle, badge, badgeType, children,
   }, [])
 
   const backendUrl = pocId ? `http://localhost:3001/api/pocs/${pocId}` : null
-  const blueprints = POC_CONFIG.filter(poc => poc.badgeType === 'Template')
 
   return (
     <Container>
@@ -178,16 +165,6 @@ export default function POCLayout({ title, subtitle, badge, badgeType, children,
           </button>
         </div>
       </div>
-
-      {blueprints.length > 0 && (
-        <BlueprintNav>
-          {blueprints.map(bp => (
-            <BlueprintLink key={bp.id} to={bp.path} $active={location.pathname === bp.path}>
-              {bp.name}
-            </BlueprintLink>
-          ))}
-        </BlueprintNav>
-      )}
 
       <Header>
         <div className="flex items-center justify-center gap-2 mb-2">

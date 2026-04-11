@@ -130,8 +130,6 @@ export default function Navbar() {
             ))}
           </DropdownMenu>
         </DropdownContainer>
-
-        <NavLink to="/pocs/api" $active={location.pathname === '/pocs/api'}>API</NavLink>
       </NavLinks>
     </Nav>
   )
