@@ -1,3 +1,9 @@
+/**
+ * Basic POC Template
+ * 
+ * A simple starter with a centered card, ideal for UI-only experiments 
+ * or simple logic demonstrations.
+ */
 import styled from 'styled-components'
 import POCLayout from '../../components/POCLayout'
 

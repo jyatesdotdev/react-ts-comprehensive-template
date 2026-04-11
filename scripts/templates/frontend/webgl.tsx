@@ -1,3 +1,12 @@
+/**
+ * WebGL POC Template
+ * 
+ * Pre-configured Three.js environment including:
+ * - Responsive canvas
+ * - OrbitControls (zoom/rotate/pan)
+ * - Basic lighting (ambient + point)
+ * - Safe memory disposal (renderer, geometry, material)
+ */
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
