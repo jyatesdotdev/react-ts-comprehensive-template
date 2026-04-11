@@ -90,7 +90,6 @@ export default function WebSocketPOC() {
       subtitle="Bi-directional communication testing with Hono."
       badge="POC"
       badgeType="POC"
-      pocId="websocket"
     >
       <Card>
         <div className="flex justify-between items-center mb-6">

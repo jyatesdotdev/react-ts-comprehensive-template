@@ -20,7 +20,6 @@ export default function TemplatePOC() {
       subtitle="A clean starting point for your next Proof of Concept."
       badge="Template"
       badgeType="STABLE"
-      pocId="template"
     >
       <div className="flex flex-col items-center">
         <Card>

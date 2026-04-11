@@ -114,7 +114,6 @@ export default function WebRTCPOC() {
       subtitle="Peer-to-peer communication demo (using a local loopback)."
       badge="POC"
       badgeType="POC"
-      pocId="webrtc"
     >
       <div className="max-w-4xl mx-auto">
         <VideoGrid>

@@ -39,7 +39,6 @@ export default function APIPOC() {
       subtitle="Testing REST API interactions with the Hono backend server."
       badge="POC"
       badgeType="POC"
-      pocId="api"
     >
       <div className="flex flex-col items-center">
         <Card>

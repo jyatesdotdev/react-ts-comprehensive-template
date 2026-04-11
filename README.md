@@ -21,7 +21,7 @@ A modern, extensible template for rapid prototyping and technical Proof of Conce
 
 2. Start the development environment (Frontend + Backend):
    ```bash
-   npm run dev:all
+   npm run dev
    ```
 
 - Frontend: [http://localhost:5180](http://localhost:5180)

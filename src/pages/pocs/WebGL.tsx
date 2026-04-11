@@ -65,7 +65,6 @@ export default function WebGLPOC() {
       subtitle="Experimental 3D rendering with Three.js in React."
       badge="WIP"
       badgeType="WIP"
-      pocId="webgl"
     >
       <CanvasContainer ref={containerRef}>
         <InfoOverlay>

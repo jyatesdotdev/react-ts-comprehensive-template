@@ -139,7 +139,6 @@ export default function WebGLTemplate() {
       subtitle="Robust Three.js setup with lighting, controls, and safe disposal."
       badge="Template"
       badgeType="Template"
-      pocId="webgl-template"
     >
       <CanvasContainer ref={containerRef}>
         <HUD>
