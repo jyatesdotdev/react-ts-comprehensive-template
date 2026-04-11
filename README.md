@@ -12,9 +12,14 @@ A modern, extensible template for rapid prototyping and technical Proof of Conce
 - **Styled Components** for scoped, dynamic styling
 - **React Router 7** for navigation
 
-## Documentation
+## Documentation & Tutorials
 
-For a detailed look at the project's design philosophy and technical setup, see [ARCHITECTURE.md](./ARCHITECTURE.md).
+Detailed guides are available to help you extend the Research Lab:
+
+-   [**Architecture Overview**](./ARCHITECTURE.md) - Design philosophy and technical stack.
+-   [**Adding new POCs**](./docs/adding-pocs.md) - How to create and register new experiments.
+-   [**Backend Integration**](./docs/backend-integration.md) - Extending the Hono server.
+-   [**Testing Guide**](./docs/testing.md) - Unit, E2E, and Visual regression testing.
 
 ## Project Structure
 
