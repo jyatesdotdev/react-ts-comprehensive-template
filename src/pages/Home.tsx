@@ -3,46 +3,68 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { POC_CONFIG } from '../config/pocs'
 
+// Container is the primary layout wrapper.
+// Adjusting 'min-h-screen' ensures the background covers the full viewport height.
 const Container = styled.div.attrs({
   className: 'min-h-screen bg-gray-50 flex flex-col items-center p-8 font-sans'
 })``
 
+// Header contains the main title and introduction.
+// Adjusting 'text-center max-w-2xl' centers the text and restricts width for readability.
 const Header = styled.header.attrs({
   className: 'mb-12 text-center max-w-2xl'
 })``
 
+// Title is the large, colorful main heading.
+// Adjusting 'bg-gradient-to-r' and 'text-transparent bg-clip-text' creates the modern gradient text effect.
 const Title = styled.h1.attrs({
   className: 'text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4 tracking-tight'
 })``
 
+// Subtitle acts as a smaller descriptive text below the Title.
+// Adjusting 'text-xl text-gray-600' controls its visual hierarchy relative to the Title.
 const Subtitle = styled.p.attrs({
   className: 'text-xl text-gray-600 leading-relaxed'
 })``
 
+// Section delineates major content areas on the homepage.
+// Adjusting 'max-w-4xl' constrains the width, and 'bg-white shadow-xl rounded-2xl' gives it a floating card look.
 const Section = styled.section.attrs({
   className: 'max-w-4xl w-full bg-white shadow-xl rounded-2xl p-8 mb-8 border border-gray-100'
 })``
 
+// SectionTitle creates headers for the sections.
+// Adjusting 'flex items-center gap-2' allows for inline icons or badges next to the text.
 const SectionTitle = styled.h2.attrs({
   className: 'text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2'
 })``
 
+// POCGrid is a responsive container for iterating over experiment cards.
+// Adjusting 'grid-cols-1 sm:grid-cols-2' specifies a single column on mobile and two columns on larger screens.
 const POCGrid = styled.div.attrs({
   className: 'grid grid-cols-1 sm:grid-cols-2 gap-6'
 })``
 
+// POCCard represents an individual experiment link card.
+// Adjusting 'group hover:shadow-xl hover:border-blue-400' creates an interactive lift effect without moving the element.
 const POCCard = styled(Link).attrs({
   className: 'group p-6 border border-gray-100 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl hover:border-blue-400 transition-all duration-300 flex flex-col gap-3'
 })``
 
+// LinkCard is a stylized pill-shaped link for external resources.
+// Adjusting 'hover:bg-blue-50 hover:text-blue-600' provides feedback when hovering over a tech stack item.
 const LinkCard = styled.a.attrs({
   className: 'p-3 border border-gray-100 rounded-xl hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 text-center text-sm font-bold text-gray-600'
 })``
 
+// CodeBlock displays formatted code snippets.
+// Adjusting 'bg-gray-900 text-gray-100' creates a dark editor-like theme for syntax.
 const CodeBlock = styled.pre.attrs({
   className: 'bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto my-4 text-sm font-mono leading-relaxed'
 })``
 
+// Badge signifies the status of an experiment inline.
+// Modifying the colors allows the addition of new statuses inside the template literal.
 const Badge = styled.span.attrs<{ type?: string }>((props) => ({
   className: `px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
     props.type === 'WIP' ? 'bg-yellow-100 text-yellow-700' : 

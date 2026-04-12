@@ -7,6 +7,8 @@
 import styled from 'styled-components'
 import POCLayout from '../../components/POCLayout'
 
+// Card is the main container for the POC content block.
+// Adjusting 'bg-white' changes the background color, 'rounded-2xl' changes border radius, 'p-8' changes padding padding, and 'shadow-xl' changes the drop shadow size.
 const Card = styled.div.attrs({
   className: 'bg-white shadow-xl rounded-2xl p-8 border border-gray-100 w-full'
 })``

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Suspense } from 'react'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
+import Tutorials from './pages/Tutorials'
 import { POC_CONFIG } from './config/pocs'
 
 const Loading = () => (
@@ -18,6 +19,7 @@ function App() {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/tutorials" element={<Tutorials />} />
             {POC_CONFIG.map(poc => (
               <Route 
                 key={poc.id} 

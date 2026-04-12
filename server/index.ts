@@ -1,11 +1,13 @@
 /**
  * Hono POC Server
- * 
+ *
  * This is the main backend entry point. It serves:
  * 1. REST API routes under /api/*
  * 2. WebSocket upgrades under /ws
+ * 3. In production: Vite build output from dist/ with SPA fallback
  */
 import { serve } from '@hono/node-server'
+import { serveStatic } from '@hono/node-server/serve-static'
 import { createNodeWebSocket } from '@hono/node-ws'
 import { Hono } from 'hono'
 import api from './routes'
@@ -14,6 +16,9 @@ const app = new Hono()
 
 // Create Node WebSocket helper
 const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app })
+
+/** Health check for Docker / load balancers */
+app.get('/health', (c) => c.json({ status: 'ok' }))
 
 /**
  * API Route Mounting
@@ -43,10 +48,13 @@ app.get(
   })
 )
 
-// Example of a top-level route
-app.get('/', (c) => c.text('Hono POC Server is active.'))
+/** Serve Vite production build (static assets from dist/) */
+app.use('*', serveStatic({ root: './dist' }))
 
-const port = 3001
+/** SPA fallback — serve index.html for client-side routes */
+app.get('*', serveStatic({ root: './dist', path: 'index.html' }))
+
+const port = Number(process.env.PORT) || 3001
 console.log(`🚀 Server is running on http://localhost:${port}`)
 
 const server = serve({

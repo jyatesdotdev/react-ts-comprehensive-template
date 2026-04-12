@@ -3,26 +3,38 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { POC_CONFIG } from '../config/pocs'
 
+// Container is the outermost wrapper for the POC layout.
+// Adjusting 'min-h-screen' ensures it fills the viewport vertically, while 'bg-gray-50' sets the underlying page color.
 const Container = styled.div.attrs({
   className: 'min-h-screen bg-gray-50 flex flex-col items-center p-8 font-sans'
 })``
 
+// Header encompasses the title and subtitle of the POC.
+// Adjusting 'mb-8' alters the spacing between the header and the content below.
 const Header = styled.header.attrs({
   className: 'mb-8 text-center max-w-2xl'
 })``
 
+// Title displays the primary name of the POC.
+// Adjusting 'text-4xl font-black text-gray-900' alters the main typography.
 const Title = styled.h1.attrs({
   className: 'text-4xl font-black text-gray-900 mb-2'
 })``
 
+// Subtitle offers a short description under the title.
+// Adjusting 'text-lg text-gray-600' sets its size and subdued color.
 const Subtitle = styled.p.attrs({
   className: 'text-lg text-gray-600'
 })``
 
+// Content is the white card containing the core functionality of the POC.
+// Adjusting 'max-w-5xl' specifies the width limit, while 'bg-white shadow-xl' provides the floating card aesthetic.
 const Content = styled.section.attrs({
   className: 'max-w-5xl w-full bg-white shadow-xl rounded-2xl p-8 mb-8 border border-gray-100'
 })``
 
+// Badge presents the POC status in the header block.
+// Modifying 'bg-...' allows changing the colors for different status types.
 const Badge = styled.span.attrs<{ $type?: string }>((props) => ({
   className: `px-2 py-0.5 rounded text-[10px] font-black uppercase ${
     props.$type === 'WIP' ? 'bg-yellow-100 text-yellow-700' : 
@@ -33,6 +45,8 @@ const Badge = styled.span.attrs<{ $type?: string }>((props) => ({
   }`
 }))<{ $type?: string }>``
 
+// Breadcrumb is the navigational path at the top left of the layout.
+// Adjusting 'flex items-center gap-2' ensures horizontal alignment of elements.
 const Breadcrumb = styled.nav.attrs({
   className: 'flex items-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-widest'
 })`
@@ -40,18 +54,24 @@ const Breadcrumb = styled.nav.attrs({
   flex: none;
 `
 
+// BreadcrumbLink is an individual interactive link in the breadcrumb path.
+// Adjusting 'hover:text-blue-600' defines interaction behavior.
 const BreadcrumbLink = styled(Link).attrs({
   className: 'hover:text-blue-600 transition-colors'
 })`
   flex: none;
 `
 
+// SwitcherContainer groups the experiment switching button and menu.
+// Adjusting 'relative' ensures the absolute positioned menu anchors here.
 const SwitcherContainer = styled.div.attrs({
   className: 'relative'
 })`
   flex: none;
 `
 
+// SwitcherButton triggers expanding the experiment switcher.
+// Adjusting 'bg-gray-100 hover:bg-gray-200' creates a gentle button background.
 const SwitcherButton = styled.button.attrs({
   className: 'flex items-center gap-1 px-2 py-1 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-900 transition-colors text-[10px] font-black'
 })`
@@ -59,6 +79,8 @@ const SwitcherButton = styled.button.attrs({
   flex: none;
 `
 
+// SwitcherMenu holds the list of alternative POCs for easy switching.
+// Adjusting 'w-64' sets the drop-down width, while 'origin-top-left' changes scaling behavior.
 const SwitcherMenu = styled.div.attrs<{ $isOpen: boolean }>((props) => ({
   className: `absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-[60] transition-all duration-200 origin-top-left ${
     props.$isOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 pointer-events-none invisible'
@@ -66,6 +88,8 @@ const SwitcherMenu = styled.div.attrs<{ $isOpen: boolean }>((props) => ({
   style: { display: props.$isOpen ? 'block' : 'none' }
 }))<{ $isOpen: boolean }>``
 
+// SwitcherItem represents a single list item in the switch menu.
+// Adjusting 'px-4 py-2 text-sm' changes internal padding and font tracking for the list.
 const SwitcherItem = styled(Link).attrs<{ $active?: boolean }>((props) => ({
   className: `block px-4 py-2 text-sm transition-all ${
     props.$active ? 'bg-blue-50 text-blue-700 font-bold' : 'text-gray-600 hover:bg-gray-50'

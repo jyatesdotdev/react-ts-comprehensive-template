@@ -2,29 +2,42 @@ import React, { useState, useEffect } from 'react'
 import POCLayout from '../../components/POCLayout'
 import styled from 'styled-components'
 
+// TodoItem serves as the wrapper for a single todo row.
+// Adjusting 'flex items-center gap-4' alters the horizontal alignment and spacing of the checkbox, text, and delete button.
+// Modifying 'border-b border-gray-100' adjusts the separator line between items, while 'group' permits hover interactions for child elements.
 const TodoItem = styled.div.attrs({
   className: 'flex items-center gap-4 p-3 border-b border-gray-100 last:border-b-0 group'
 })``
 
+// Checkbox represents the toggle for completing a todo.
+// Adjusting 'w-5 h-5' modifies the physical size. 'text-blue-600 focus:ring-blue-500' controls the checked color and focus ring hue, while 'active:scale-90' impacts the shrinking animation on click.
 const Checkbox = styled.input.attrs({
   type: 'checkbox',
   className: 'w-5 h-5 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-all transform active:scale-90'
 })``
 
+// Text is the main description of the todo.
+// Adjusting 'line-through text-gray-400 opacity-60' changes how a checked item looks visually, while 'text-gray-700' defines the normal, unchecked text color.
 const Text = styled.span.attrs<{ $completed?: boolean }>((props) => ({
   className: `flex-grow font-medium transition-all duration-300 ${
     props.$completed ? 'line-through text-gray-400 opacity-60' : 'text-gray-700'
   }`
 }))<{ $completed?: boolean }>``
 
+// Input is the primary text field for inputting a new todo text.
+// Adjusting 'p-4' affects the padding/height of the text box, 'border-gray-200 rounded-xl' alters the default outline, and 'focus:ring-2 focus:ring-blue-500' dictates the halo effect on focus.
 const Input = styled.input.attrs({
   className: 'w-full p-4 border border-gray-200 rounded-xl mb-6 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all shadow-sm focus:shadow-md'
 })``
 
+// Button submits the new todo.
+// Adjusting 'bg-blue-600 hover:bg-blue-700' changes the base and on-hover color. 'text-xs uppercase tracking-widest' styles it as a pill-style or badge-like button, and 'shadow-blue-500/20' changes the colorful drop shadow.
 const Button = styled.button.attrs({
   className: 'bg-blue-600 text-white px-8 py-2 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-blue-700 transition-all active:scale-95 shadow-lg shadow-blue-500/20 mb-6'
 })``
 
+// DeleteButton removes a todo and appears when the parent TodoItem is hovered.
+// Adjusting 'opacity-0 group-hover:opacity-100' shifts the visibility logic. Changing 'text-red-400 hover:text-red-600 hover:bg-red-50' alters the icon colors and background highlight on hover.
 const DeleteButton = styled.button.attrs({
   className: 'opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 transition-all p-1.5 hover:bg-red-50 rounded-lg'
 })``

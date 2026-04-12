@@ -13,22 +13,32 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import styled from 'styled-components'
 import POCLayout from '../../components/POCLayout'
 
+// CanvasContainer wraps the 3D rendering area.
+// Adjusting 'h-[600px]' alters the viewport height, and 'group' enables hover-based visibility for child elements.
 const CanvasContainer = styled.div.attrs({
   className: 'w-full h-[600px] bg-black rounded-2xl overflow-hidden relative shadow-2xl group'
 })``
 
+// HUD groups on-screen indicators and menus.
+// Adjusting 'opacity-60 group-hover:opacity-100' controls the fade-in effect when the user interacts with the canvas.
 const HUD = styled.div.attrs({
   className: 'absolute top-6 left-6 flex flex-col gap-2 pointer-events-none group-hover:opacity-100 opacity-60 transition-opacity duration-500'
 })``
 
+// Badge displays small status tags.
+// Adjusting 'bg-blue-600/80 backdrop-blur-md' gives it the semi-transparent glassy appearance.
 const Badge = styled.div.attrs({
   className: 'bg-blue-600/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-widest w-fit shadow-lg shadow-blue-500/20'
 })``
 
+// InfoPanel holds detailed diagnostic or scene data.
+// Adjusting 'min-w-[200px]' forces a specific width. 'bg-white/5 backdrop-blur-xl' handles the glassmorphism.
 const InfoPanel = styled.div.attrs({
   className: 'bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-xl text-white min-w-[200px] shadow-2xl'
 })``
 
+// ControlsTip shows tooltips for controls at the bottom of the canvas.
+// Adjusting 'bottom-6 left-1/2 -translate-x-1/2' centers the element horizontally near the bottom edge.
 const ControlsTip = styled.div.attrs({
   className: 'absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full text-[10px] text-white/80 font-bold uppercase tracking-widest pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity'
 })``

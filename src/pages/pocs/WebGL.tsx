@@ -3,10 +3,14 @@ import * as THREE from 'three'
 import styled from 'styled-components'
 import POCLayout from '../../components/POCLayout'
 
+// CanvasContainer is the wrapper for the 3D canvas element.
+// Adjusting 'h-[500px]' controls the canvas height. Modifying 'bg-black' changes the default background before the 3D scene loads.
 const CanvasContainer = styled.div.attrs({
   className: 'w-full h-[500px] bg-black rounded-2xl overflow-hidden relative shadow-inner'
 })``
 
+// InfoOverlay displays essential data over the 3D scene.
+// Adjusting 'backdrop-blur-md bg-white/10' handles the frosted glass effect. Modifying 'pointer-events-none' ensures clicks pass through to the canvas.
 const InfoOverlay = styled.div.attrs({
   className: 'absolute top-4 left-4 bg-white/10 backdrop-blur-md p-4 rounded-lg text-white pointer-events-none'
 })``

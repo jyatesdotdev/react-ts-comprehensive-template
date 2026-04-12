@@ -1,0 +1,48 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+build
+
+# Test artifacts
+coverage
+test-results
+playwright-report
+blob-report
+playwright/.cache
+e2e/screenshots
+
+# Documentation
+docs
+*.md
+LICENSE
+
+# IDE / editor
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+.gemini
+latest_screenshot*.png
+*.pem
+logs
+*.log

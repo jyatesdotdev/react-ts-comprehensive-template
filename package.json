@@ -14,7 +14,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:screenshots": "playwright test e2e/screenshots.spec.ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node --import tsx server/index.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.13",

@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import POCLayout from '../../components/POCLayout'
 
+// Card is the main container for the POC content block.
+// Adjusting 'bg-white' changes the background color, 'rounded-xl' changes border radius, 'p-8' changes padding padding, and 'shadow-sm' changes the drop shadow size.
 const Card = styled.div.attrs({
   className: 'bg-white shadow-sm rounded-xl p-8 border border-gray-100 w-full'
 })``
 
+// ResponseBox is used to display JSON output in a code-block style format.
+// Adjusting 'bg-gray-900' alters the dark background, 'text-green-400' changes the text color, and 'font-mono' alters the typographic styling.
 const ResponseBox = styled.pre.attrs({
   className: 'bg-gray-900 text-green-400 p-6 rounded-xl overflow-x-auto my-4 text-sm font-mono'
 })``

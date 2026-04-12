@@ -2,26 +2,38 @@ import { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import POCLayout from '../../components/POCLayout'
 
+// Card is the main container for the POC content block.
+// Adjusting 'bg-white' changes the background color, 'rounded-xl' changes border radius, 'max-w-2xl mx-auto' centers the element with a maximum width.
 const Card = styled.div.attrs({
   className: 'bg-white shadow-sm rounded-xl p-8 border border-gray-100 w-full max-w-2xl mx-auto'
 })``
 
+// MessageLog is the terminal-like display for chat/messages.
+// Adjusting 'bg-gray-900 text-green-400' creates the hacker-terminal aesthetic. 'h-64 overflow-y-auto' creates the scrolling fixed-height container.
 const MessageLog = styled.div.attrs({
   className: 'bg-gray-900 text-green-400 p-4 rounded-lg h-64 overflow-y-auto mb-4 font-mono text-sm'
 })``
 
+// InputGroup holds the text input and send button.
+// Adjusting 'flex gap-2' ensures they are spaced correctly on the same line.
 const InputGroup = styled.div.attrs({
   className: 'flex gap-2'
 })``
 
+// Input is the primary text field.
+// Adjusting 'focus:ring-purple-500' alters the highlight color. 'flex-grow' ensures it takes up all remaining space next to the button.
 const Input = styled.input.attrs({
   className: 'flex-grow p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none'
 })``
 
+// Button triggers the send action.
+// Adjusting 'bg-purple-600' modifies the color. 'disabled:bg-gray-400' specifies the visual state when no input is present or disconnected.
 const Button = styled.button.attrs({
   className: 'bg-purple-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-purple-700 transition-colors shadow-md disabled:bg-gray-400'
 })``
 
+// StatusBadge visually indicates connection health.
+// Adjusting the dynamic template literal allows switching between 'bg-green-500' and 'bg-red-500' based on the 'connected' prop.
 const StatusBadge = styled.span.attrs<{ connected: boolean }>({
   className: (props) => `inline-block w-3 h-3 rounded-full mr-2 ${props.connected ? 'bg-green-500' : 'bg-red-500'}`
 })<{ connected: boolean }>``

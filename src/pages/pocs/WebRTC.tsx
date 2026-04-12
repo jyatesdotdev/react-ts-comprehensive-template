@@ -2,26 +2,38 @@ import { useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import POCLayout from '../../components/POCLayout'
 
+// VideoGrid lays out the video elements.
+// Adjusting 'grid-cols-1 md:grid-cols-2' controls the responsiveness of the grid.
 const VideoGrid = styled.div.attrs({
   className: 'grid grid-cols-1 md:grid-cols-2 gap-4 mb-8'
 })``
 
+// VideoContainer gives a framed look to the video streams.
+// Adjusting 'aspect-video' forces a 16:9 ratio. 'bg-black' provides a background when the video is loading.
 const VideoContainer = styled.div.attrs({
   className: 'relative bg-black rounded-xl overflow-hidden aspect-video shadow-lg'
 })``
 
+// Video is the actual HTML5 video element.
+// Adjusting 'object-cover' ensures the video fills the container without distortion.
 const Video = styled.video.attrs({
   className: 'w-full h-full object-cover'
 })``
 
+// Label provides an overlay text for each video stream.
+// Adjusting 'bottom-4 left-4' changes the internal positioning, while 'bg-black/50 backdrop-blur-md' gives it a readable background.
 const Label = styled.div.attrs({
   className: 'absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white text-xs px-2 py-1 rounded'
 })``
 
+// Controls wraps the interaction buttons.
+// Adjusting 'flex-wrap gap-4 justify-center' aligns the buttons to the center, allowing wrapping on small screens.
 const Controls = styled.div.attrs({
   className: 'flex flex-wrap gap-4 justify-center p-6 bg-white rounded-xl border border-gray-100 shadow-sm'
 })``
 
+// Button enables starting the camera or initiating calls.
+// Adjusting the dynamic template literal allows switching colors based on the '$variant' prop.
 const Button = styled.button.attrs<{ $variant?: 'primary' | 'secondary' | 'danger' }>((props) => ({
   className: `px-6 py-2 rounded-lg font-bold transition-all shadow-md disabled:opacity-50 ${
     props.$variant === 'danger' ? 'bg-red-600 text-white hover:bg-red-700' :

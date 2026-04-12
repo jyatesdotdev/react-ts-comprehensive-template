@@ -11,6 +11,13 @@ export default defineConfig({
     baseURL: 'http://localhost:5180',
     trace: 'on-first-retry',
   },
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:5180',
+    reuseExistingServer: !process.env.CI,
+    stdout: 'ignore',
+    stderr: 'pipe',
+  },
   projects: [
     {
       name: 'chromium',
