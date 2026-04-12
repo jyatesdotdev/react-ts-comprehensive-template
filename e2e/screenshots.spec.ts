@@ -19,7 +19,7 @@ test.beforeAll(async () => {
     try {
       const response = await fetch('http://localhost:3001/');
       if (response.ok) break;
-    } catch (e) {
+    } catch {
       // Ignore and retry
     }
     await new Promise(resolve => setTimeout(resolve, 500));

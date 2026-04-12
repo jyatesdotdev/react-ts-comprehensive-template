@@ -11,7 +11,7 @@ export interface POCMetadata {
   /** URL path where the POC can be accessed. */
   path: string
   /** The React component to render (usually lazy-loaded). */
-  component: React.LazyExoticComponent<React.ComponentType<any>> | React.ComponentType<any>
+  component: React.LazyExoticComponent<React.ComponentType<unknown>> | React.ComponentType<unknown>
   /** Optional text for the status badge. */
   badge?: string
   /** Semantic type of the badge for styling purposes. */

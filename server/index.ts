@@ -32,7 +32,7 @@ app.route('/api', api)
  */
 app.get(
   '/ws',
-  upgradeWebSocket((c) => {
+  upgradeWebSocket(() => {
     return {
       onMessage(event, ws) {
         console.log(`Message from client: ${event.data}`)

@@ -69,7 +69,7 @@ export default function APIPOC() {
             </div>
           )}
           
-          {data && (
+          {data ? (
             <>
               <p className="text-gray-600 mb-4">The following data was fetched from the backend:</p>
               <ResponseBox>{JSON.stringify(data, null, 2)}</ResponseBox>
@@ -84,7 +84,7 @@ export default function APIPOC() {
                 </div>
               </div>
             </>
-          )}
+          ) : null}
         </Card>
       </div>
     </POCLayout>
