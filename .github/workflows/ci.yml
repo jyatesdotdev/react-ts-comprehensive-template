@@ -27,8 +27,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Unit tests
-        run: npx vitest run
+      - name: Test with coverage
+        run: npx vitest run --coverage
   e2e:
     runs-on: ubuntu-latest
     steps:
