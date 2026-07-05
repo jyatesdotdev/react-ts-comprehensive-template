@@ -4,9 +4,9 @@ import { Hono } from 'hono'
  * __NAME__ POC Backend
  * Mounted at /api/pocs/__ID__
  */
-const __ID__ = new Hono()
+const __BINDING__ = new Hono()
 
-__ID__.get('/', (c) => {
+__BINDING__.get('/', (c) => {
   return c.json({
     message: 'Hello from the __NAME__ backend!',
     poc: '__ID__',
@@ -14,4 +14,4 @@ __ID__.get('/', (c) => {
   })
 })
 
-export default __ID__
+export default __BINDING__

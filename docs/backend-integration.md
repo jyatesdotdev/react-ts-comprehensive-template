@@ -41,12 +41,14 @@ const api = new Hono()
 
 // ... existing routes ...
 
-api.route('/my-experiment', myExperiment) // 2. Mount it
+api.route('/pocs/my-experiment', myExperiment) // 2. Mount it
 
 export default api
 ```
 
-Your routes will now be available at `http://localhost:3001/api/my-experiment/*`.
+Your routes will now be available at `http://localhost:3001/api/pocs/my-experiment/*`.
+
+> **Convention:** experiment modules are mounted under `/api/pocs/<id>` so they line up with the frontend `pocId` and the `create-poc` scaffolder. `POCLayout`'s "Backend API" button links to exactly this path.
 
 ## 3. Communication Patterns
 

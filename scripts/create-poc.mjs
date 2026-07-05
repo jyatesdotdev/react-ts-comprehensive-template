@@ -26,6 +26,10 @@ if (!pocName) {
 }
 
 const id = pocName.toLowerCase().replace(/\s+/g, '-');
+// camelCase form of the id — a valid JS identifier, safe for multi-word names
+// (e.g. "my-poc" -> "myPoc"). Used for the backend import binding and the
+// Hono instance variable in generated server modules.
+const camelId = id.replace(/-([a-z])/g, g => g[1].toUpperCase());
 const componentName = pocName.replace(/(^\w|\s\w)/g, m => m.trim().toUpperCase()).replace(/\s+/g, '');
 const fileName = `${componentName}.tsx`;
 const rootDir = path.join(__dirname, '..');
@@ -134,6 +138,7 @@ if (withBackend || type === 'todo' || type === 'api' || type === 'websocket') {
   let serverTemplate = fs.readFileSync(serverTemplatePath, 'utf8');
   serverTemplate = serverTemplate
     .replace(/__NAME__/g, pocName)
+    .replace(/__BINDING__/g, camelId)
     .replace(/__ID__/g, id);
 
   if (!fs.existsSync(serverPocPath)) {
@@ -146,7 +151,6 @@ if (withBackend || type === 'todo' || type === 'api' || type === 'websocket') {
   let routesContent = fs.readFileSync(serverRoutesPath, 'utf8');
 
   if (!routesContent.includes(`./pocs/${id}`)) {
-    const camelId = id.replace(/-([a-z])/g, g => g[1].toUpperCase());
     // Add import
     const importMatch = routesContent.match(/import .* from '\.\/pocs\/.*'/g);
     const lastImport = importMatch ? importMatch[importMatch.length - 1] : "import hello from './pocs/hello'";

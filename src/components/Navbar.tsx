@@ -71,7 +71,7 @@ const Badge = styled.span.attrs<{ $type?: string }>((props) => ({
     props.$type === 'POC' ? 'bg-blue-100 text-blue-700' : 
     props.$type === 'STABLE' ? 'bg-green-100 text-green-700' :
     props.$type === 'Template' ? 'bg-purple-100 text-purple-700' :
-    'bg-gray-100 text-gray-500'
+    'bg-gray-100 text-gray-600'
   }`
 }))<{ $type?: string }>``
 

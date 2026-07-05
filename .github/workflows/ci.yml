@@ -17,7 +17,7 @@ jobs:
       - name: Lint
         run: npx eslint .
       - name: Type check
-        run: npx tsc --noEmit
+        run: npx tsc -b
   test:
     runs-on: ubuntu-latest
     steps:

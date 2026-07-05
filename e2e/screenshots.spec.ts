@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+// NOTE: This list is maintained by hand — it is NOT derived from POC_CONFIG
+// (src/config/pocs.ts imports React/lazy components and cannot be imported here).
+// When you add or remove a POC, update this array so it keeps full coverage.
 const POC_PATHS = [
   '/',
+  '/pocs/ralph-experiment',
   '/pocs/webgl',
   '/pocs/webgl-template',
   '/pocs/todo',
