@@ -199,7 +199,7 @@ export default app`}</CodeBlock>
             <Heading2>Mounting Routes</Heading2>
             <Text>Register it in <InlineCode>server/routes.ts</InlineCode>:</Text>
             <CodeBlock>{`import myPoc from './pocs/my-poc'
-api.route('/my-poc', myPoc)`}</CodeBlock>
+api.route('/pocs/my-poc', myPoc)`}</CodeBlock>
             
             <ExternalLink href="https://hono.dev/docs" target="_blank">View Hono Documentation →</ExternalLink>
           </>
@@ -274,7 +274,7 @@ app.get('/config', (c) => c.json({
 export default app`}</CodeBlock>
             <Heading3>Frontend (src/pages/pocs/WebGL.tsx)</Heading3>
             <CodeBlock>{`useEffect(() => {
-  fetch('/api/webgl/config')
+  fetch('/api/pocs/webgl/config')
     .then(res => res.json())
     .then(config => {
       setSphereColor(config.sphereColor)
@@ -392,7 +392,7 @@ useEffect(() => {
               <Subtitle>Complex state with backend persistence.</Subtitle>
             </DocHeader>
             <Text>
-              The Todo POC demonstrates how to sync local React state with a persistent Hono backend.
+              The Todo POC demonstrates how to sync local React state with an in-memory Hono backend that resets on restart.
             </Text>
             <Heading2>Optimistic Updates</Heading2>
             <Text>

@@ -25,7 +25,7 @@ export default function WebGLPOC() {
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000)
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-    
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setSize(container.clientWidth, container.clientHeight)
     container.appendChild(renderer.domElement)
 
@@ -36,8 +36,9 @@ export default function WebGLPOC() {
 
     camera.position.z = 30
 
+    let animationId: number
     const animate = () => {
-      requestAnimationFrame(animate)
+      animationId = requestAnimationFrame(animate)
       torusKnot.rotation.x += 0.01
       torusKnot.rotation.y += 0.01
       renderer.render(scene, camera)
@@ -56,6 +57,9 @@ export default function WebGLPOC() {
 
     return () => {
       window.removeEventListener('resize', handleResize)
+      cancelAnimationFrame(animationId)
+      geometry.dispose()
+      material.dispose()
       renderer.dispose()
       if (container && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement)
@@ -67,8 +71,8 @@ export default function WebGLPOC() {
     <POCLayout 
       title="WebGL Graphics" 
       subtitle="Experimental 3D rendering with Three.js in React."
-      badge="WIP"
-      badgeType="WIP"
+      badge="POC"
+      badgeType="POC"
     >
       <CanvasContainer ref={containerRef}>
         <InfoOverlay>

@@ -21,7 +21,7 @@ export default function TemplatePOC() {
       title="New Feature Template" 
       subtitle="A clean starting point for your next Proof of Concept."
       badge="Template"
-      badgeType="STABLE"
+      badgeType="Template"
     >
       <div className="flex flex-col items-center">
         <Card>

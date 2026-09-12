@@ -7,7 +7,7 @@
  * - Basic lighting (ambient + point)
  * - Safe memory disposal (renderer, geometry, material)
  */
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import styled from 'styled-components'
@@ -173,7 +173,6 @@ export default function WebGLTemplate() {
       subtitle="Robust Three.js setup with lighting, controls, and safe disposal."
       badge="Template"
       badgeType="Template"
-      pocId="webgl-template"
     >
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-3">

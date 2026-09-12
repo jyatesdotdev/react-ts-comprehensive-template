@@ -58,7 +58,7 @@ The Vite development server is pre-configured to proxy `/api` requests to the Ho
 ```tsx
 // Inside your React component
 const fetchData = async () => {
-  const response = await fetch('/api/my-experiment/data')
+  const response = await fetch('/api/pocs/my-experiment/data')
   const data = await response.json()
   console.log(data)
 }

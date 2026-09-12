@@ -139,7 +139,7 @@ export default function POCLayout({ title, subtitle, badge, badgeType, children,
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const backendUrl = pocId ? `http://localhost:3001/api/pocs/${pocId}` : null
+  const backendUrl = pocId ? `/api/pocs/${pocId}` : null
 
   return (
     <Container>

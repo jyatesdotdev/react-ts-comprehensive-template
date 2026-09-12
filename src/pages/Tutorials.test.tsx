@@ -30,4 +30,14 @@ describe('Tutorials', () => {
     fireEvent.click(screen.getByRole('button', { name: tab }))
     expect(screen.getByText(content)).toBeInTheDocument()
   })
+
+  it('documents the /api/pocs/<id> mount contract', () => {
+    renderTutorials()
+    fireEvent.click(screen.getByRole('button', { name: 'Backend Server' }))
+    expect(screen.getByText(/api\.route\('\/pocs\/my-poc', myPoc\)/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'WebGL / 3D' }))
+    expect(screen.getByText(/fetch\('\/api\/pocs\/webgl\/config'\)/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'State & Persistence' }))
+    expect(screen.getByText(/in-memory Hono backend that resets on restart/)).toBeInTheDocument()
+  })
 })

@@ -24,7 +24,6 @@ export default function __COMPONENT_NAME__POC() {
       subtitle="A new research experiment into __NAME__."
       badge="POC"
       badgeType="POC"
-      pocId="__ID__"
     >
       <div className="flex flex-col items-center">
         <Card>

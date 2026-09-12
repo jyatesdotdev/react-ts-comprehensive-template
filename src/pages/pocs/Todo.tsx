@@ -114,8 +114,8 @@ export default function TodoPOC() {
     <POCLayout 
       title="Todo Lab" 
       subtitle="Full-stack state management using Hono backend and React."
-      badge="POC"
-      badgeType="POC"
+      badge="STABLE"
+      badgeType="STABLE"
       pocId="todo"
     >
       <div className="max-w-md mx-auto">

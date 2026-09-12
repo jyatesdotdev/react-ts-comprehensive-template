@@ -30,8 +30,6 @@ const TodoPOC = React.lazy(() => import('../pages/pocs/Todo'))
 const WebRTCPOC = React.lazy(() => import('../pages/pocs/WebRTC'))
 const WebSocketPOC = React.lazy(() => import('../pages/pocs/WebSocket'))
 const TemplatePOC = React.lazy(() => import('../pages/pocs/Template'))
-const DashboardTestPOC = React.lazy(() => import('../pages/pocs/DashboardTest'))
-const RalphExperimentPOC = React.lazy(() => import('../pages/pocs/RalphExperiment'))
 
 /**
  * Central registry of all active Proof of Concepts.
@@ -40,26 +38,6 @@ const RalphExperimentPOC = React.lazy(() => import('../pages/pocs/RalphExperimen
  * and adds it to the global navigation "Experiments" dropdown.
  */
 export const POC_CONFIG: POCMetadata[] = [
-  {
-    id: 'ralph-experiment',
-    name: 'Ralph Experiment',
-    path: '/pocs/ralph-experiment',
-    component: RalphExperimentPOC,
-    badge: 'POC',
-    badgeType: 'POC',
-    category: 'Graphics',
-    description: 'Research experiment into Ralph Experiment.'
-  },
-  {
-    id: 'dashboard-test',
-    name: 'Dashboard Test',
-    path: '/pocs/dashboard-test',
-    component: DashboardTestPOC,
-    badge: 'POC',
-    badgeType: 'POC',
-    category: 'General',
-    description: 'Research experiment into Dashboard Test.'
-  },
   {
     id: 'webgl',
     name: 'WebGL',
@@ -126,6 +104,7 @@ export const POC_CONFIG: POCMetadata[] = [
     path: '/pocs/template',
     component: TemplatePOC,
     badge: 'Template',
+    badgeType: 'Template',
     category: 'Utility',
     description: 'Copy this to create a new research experiment.'
   }

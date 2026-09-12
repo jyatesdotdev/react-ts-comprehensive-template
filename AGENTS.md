@@ -2,14 +2,14 @@
 
 A "Research Lab" template for rapidly building isolated Proof-of-Concept (POC) experiments on a React 19 + TypeScript frontend with a Hono backend.
 
-> **This file is the master index.** It orients you and routes you to the right place. **Every major directory has its own `AGENTS.md`** with the local rules that matter there — read the directory-level file before editing files in that directory. See the [Directory index](#directory-index) below.
+> **This file is the only agent guide.** Nested per-directory `AGENTS.md` files were removed: they duplicated these rules and drifted (ports, CI commands, template bugs) faster than they helped. Read this file, then the code.
 
 ## Architecture
 
 The **POC model** is the heart of the repo. Each experiment is a self-contained page (and optionally a backend module) registered in one central place.
 
 - **Frontend** runs on **Vite port 5180** (`strictPort`). **Backend** Hono runs on **port 3001**.
-- The Vite dev server **proxies `/api` and `/ws`** to `http://localhost:3001` (see `vite.config.ts`). Frontend code therefore fetches **relative paths** like `/api/pocs/<id>` — **never hardcode `http://localhost:3001`** in components. (The one intentional exception: `POCLayout` builds an absolute `http://localhost:3001/api/pocs/<id>` URL for its external "Backend API" link button.)
+- The Vite dev server **proxies `/api` and `/ws`** to `http://localhost:3001` (see `vite.config.ts`). Frontend code therefore fetches **relative paths** like `/api/pocs/<id>` — **never hardcode `http://localhost:3001`**. `POCLayout`'s "Backend API" button uses the same-origin href `/api/pocs/<id>` so it works in Docker/prod as well as local dev.
 - **`src/config/pocs.ts` is the single source of truth.** It defines the `POCMetadata` interface and the `POC_CONFIG` array. Each entry: `{ id, name, path, component (React.lazy), badge?, badgeType?: WIP|POC|STABLE|Template, description, category?: Graphics|Network|State|Utility|General }`.
 - Adding one `POC_CONFIG` entry automatically wires up **routing** (`src/App.tsx` maps entries to `<Route>` inside `<Suspense>`), the **navbar** (`src/components/Navbar.tsx` groups by category into the Experiments dropdown), and the **experiment switcher** (`src/components/POCLayout.tsx`).
 - **Backend:** `server/index.ts` is the entry (health check `/health`, mounts `server/routes.ts` under `/api`, a global `/ws` echo WebSocket, and serves `dist/` static + SPA fallback in prod). `server/routes.ts` mounts each `server/pocs/<id>.ts` module via `api.route("/pocs/<id>", module)`. Each module exports a `new Hono()` with routes relative to its mount point.
@@ -42,34 +42,32 @@ Package manager: **npm** (`package-lock.json`).
 | `npm run dev:server` | Hono backend only (`tsx watch server/index.ts`, port 3001). |
 | `npm run build` | Type-check + production build (`tsc -b && vite build`). |
 | `npm run lint` | ESLint across the repo (`eslint .`). |
-| `npm test` | Run Vitest unit tests once (`vitest run`). |
+| `npm test` | Run Vitest unit tests once with coverage (`vitest run --coverage`). |
 | `npm run test:watch` | Vitest in watch mode. |
 | `npm run test:e2e` | Playwright E2E suite (auto-starts `npm run dev`). |
-| `npm run test:screenshots` | Playwright visual/screenshot spec (`e2e/screenshots.spec.ts`). |
+| `npm run test:screenshots` | Playwright screenshot/render-health spec (`e2e/screenshots.spec.ts`). |
 | `npm run create-poc "<Name>" [type] [--backend]` | Scaffold a new POC (types: basic, webgl, websocket, webrtc, api, todo). |
 | `npm run preview` | Serve the built frontend (`vite preview`). |
 | `npm start` | Run the production server (`node --import tsx server/index.ts`). |
 
 ## Directory index
 
-Each directory below owns its local conventions — **open the linked `AGENTS.md` before working in that directory.**
-
 | Directory | Purpose |
 | --- | --- |
-| [`src/`](./src/AGENTS.md) | Frontend entrypoint: React bootstrap (`main.tsx`), registry-driven routing shell (`App.tsx`), global Tailwind CSS, Vitest setup. |
-| [`src/config/`](./src/config/AGENTS.md) | POC registry (`pocs.ts`): `POCMetadata` interface + `POC_CONFIG`, single source of truth for routing/nav; coverage-excluded. |
-| [`src/components/`](./src/components/AGENTS.md) | Shared UI (`Navbar`, `POCLayout`) using the styled-components + Tailwind idiom; `POCLayout` is the standard POC page wrapper. |
-| [`src/pages/`](./src/pages/AGENTS.md) | Top-level (non-POC) route pages `Home` and `Tutorials` plus their Vitest unit tests; `Home` consumes `POC_CONFIG`. |
-| [`src/pages/pocs/`](./src/pages/pocs/AGENTS.md) | Lazy-loaded POC experiment pages wrapping `POCLayout`; must be registered in `src/config/pocs.ts`. Includes copyable templates. |
-| [`server/`](./server/AGENTS.md) | Hono backend: `index.ts` entry (health, `/ws` echo, `/api` mount, static/SPA) and `routes.ts` `/api` router mounting `server/pocs/*`. |
-| [`server/pocs/`](./server/pocs/AGENTS.md) | Per-experiment Hono API modules with in-memory state, each mounted under `/api/pocs/<id>` via `server/routes.ts`. |
-| [`scripts/`](./scripts/AGENTS.md) | `create-poc` code generator that scaffolds POCs and string-edits `pocs.ts` + `routes.ts` via anchor matching. |
-| [`scripts/templates/`](./scripts/templates/AGENTS.md) | POC template sources with placeholder tokens, ESLint-ignored, copied + substituted by `create-poc`; `frontend/` + `backend/`. |
-| [`scripts/templates/frontend/`](./scripts/templates/frontend/AGENTS.md) | React component stencils (one per POC type) consumed by the `create-poc` scaffolder via placeholder tokens. |
-| [`scripts/templates/backend/`](./scripts/templates/backend/AGENTS.md) | Hono backend module templates (basic + todo CRUD) with `__NAME__`/`__ID__` tokens the `create-poc` scaffolder fills in. |
-| [`e2e/`](./e2e/AGENTS.md) | Playwright E2E + full-page screenshot specs; baseURL 5180, auto-starts `npm run dev`. `POC_PATHS` in `screenshots.spec.ts` is a **manually maintained** hardcoded list, not derived from `POC_CONFIG`, so it can drift — keep it in sync by hand when adding POCs. |
-| [`docs/`](./docs/AGENTS.md) | Human-facing tutorials (adding POCs, backend integration, testing) that must stay in sync with real code. |
-| [`.github/workflows/`](./.github/workflows/AGENTS.md) | GitHub Actions CI gates (lint/typecheck/vitest+coverage/Playwright E2E) and security scanning (`security.yml`: `npm audit` + Trivy + CodeQL). |
+| [`src/`](./src/) | Frontend entrypoint: React bootstrap (`main.tsx`), registry-driven routing shell (`App.tsx`), global Tailwind CSS, Vitest setup. |
+| [`src/config/`](./src/config/) | POC registry (`pocs.ts`): `POCMetadata` interface + `POC_CONFIG`, single source of truth for routing/nav; coverage-excluded. |
+| [`src/components/`](./src/components/) | Shared UI (`Navbar`, `POCLayout`) using the styled-components + Tailwind idiom; `POCLayout` is the standard POC page wrapper. |
+| [`src/pages/`](./src/pages/) | Top-level (non-POC) route pages `Home` and `Tutorials` plus their Vitest unit tests; `Home` consumes `POC_CONFIG`. |
+| [`src/pages/pocs/`](./src/pages/pocs/) | Lazy-loaded POC experiment pages wrapping `POCLayout`; must be registered in `src/config/pocs.ts`. Includes copyable templates. |
+| [`server/`](./server/) | Hono backend: `index.ts` entry (health, `/ws` echo, `/api` mount, static/SPA) and `routes.ts` `/api` router mounting `server/pocs/*`. |
+| [`server/pocs/`](./server/pocs/) | Per-experiment Hono API modules with in-memory state, each mounted under `/api/pocs/<id>` via `server/routes.ts`. |
+| [`scripts/`](./scripts/) | `create-poc` code generator that scaffolds POCs and string-edits `pocs.ts` + `routes.ts` via anchor matching. It does **not** edit `e2e/screenshots.spec.ts`. |
+| [`scripts/templates/`](./scripts/templates/) | POC template sources with placeholder tokens, ESLint-ignored, copied + substituted by `create-poc`; `frontend/` + `backend/`. |
+| [`scripts/templates/frontend/`](./scripts/templates/frontend/) | React component stencils (one per POC type) consumed by the `create-poc` scaffolder via placeholder tokens. |
+| [`scripts/templates/backend/`](./scripts/templates/backend/) | Hono backend module templates (basic + todo CRUD) with `__NAME__`/`__ID__` tokens the `create-poc` scaffolder fills in. |
+| [`e2e/`](./e2e/) | Playwright E2E + full-page screenshot specs; baseURL 5180, auto-starts `npm run dev`. `POC_PATHS` in `screenshots.spec.ts` is a **manually maintained** hardcoded list, not derived from `POC_CONFIG` — `src/pocRegistry.test.ts` fails if it drifts. |
+| [`docs/`](./docs/) | Human-facing tutorials (adding POCs, backend integration, testing) that must stay in sync with real code. |
+| [`.github/workflows/`](./.github/workflows/) | GitHub Actions CI gates (lint, `npm run build`, vitest+coverage, Playwright E2E) and security scanning (`security.yml`: `npm audit` + Trivy + CodeQL). Node **24**. |
 
 ## Global rules & conventions
 
@@ -83,7 +81,7 @@ These cross-cutting invariants apply repo-wide. A lesser agent **must** respect 
 6. **Backend state is in-memory** (e.g. `server/pocs/todo.ts` holds `let todos = [...]`). It resets on restart and is **not** production-durable — POC scope only.
 7. **TypeScript compiler flags** (`tsconfig.app.json` / `tsconfig.node.json`) — note `"strict": true` is **not** set, so `strictNullChecks`/`noImplicitAny` are off; the enforced flags are: `noUnusedLocals`, `noUnusedParameters`, `noFallthroughCasesInSwitch`, `verbatimModuleSyntax` (use `import type` for type-only imports), `erasableSyntaxOnly` (**no** runtime-emitting TS-only syntax: no enums, no parameter properties, no namespaces — use `type`/`interface`/`as const`), `moduleResolution: bundler`, `jsx: react-jsx` (no need to import React just for JSX). App code targets the browser (`tsconfig.app`); Node config files target node (`tsconfig.node`).
 8. **Three.js / WebGL lifecycle.** Set up scene/camera/renderer inside `useEffect`; in cleanup you **must** dispose geometries, materials, renderer, and controls, `cancelAnimationFrame`, remove the resize listener, and remove the canvas from the container — otherwise the SPA leaks GPU memory on navigation. Cap `renderer.setPixelRatio` at `Math.min(devicePixelRatio, 2)`.
-9. **Coverage gate.** Vitest enforces **80%** for lines/functions/branches/statements (`vitest.config.ts`), and **`src/config/**` is excluded** from coverage. Unit tests are colocated `*.test.tsx`, run in jsdom with globals enabled; `src/setupTests.ts` imports `@testing-library/jest-dom`. E2E/visual tests live in `e2e/` (Vitest excludes `e2e/**`).
+9. **Coverage gate.** Vitest enforces **80%** for lines/functions/branches/statements (`vitest.config.ts`) on **files imported by unit tests** (no `coverage.all`). **`src/config/**` is excluded**. Unit tests are colocated `*.test.tsx`, run in jsdom with globals enabled; `src/setupTests.ts` imports `@testing-library/jest-dom`. E2E tests live in `e2e/` (Vitest excludes `e2e/**`). `src/pocRegistry.test.ts` guards page/registry/`POC_PATHS` drift without rendering every POC page.
 10. **Scaffolder anchor-string fragility.** `create-poc` edits `src/config/pocs.ts` and `server/routes.ts` by string/regex matching. It relies on anchor strings staying intact: the literal `export const POC_CONFIG: POCMetadata[] = [`, the last `React.lazy(...)` import line, and the last `api.route(...)` line. Reformatting those anchors can break the scaffolder.
 11. **Template placeholder tokens.** Files in `scripts/templates/` use tokens replaced by the scaffolder: `__NAME__` (display name), `__COMPONENT_NAME__` (PascalCase), `__ID__` (kebab id), `__FILE_NAME__` (file name). These template files are **ESLint-ignored** (`globalIgnores` in `eslint.config.js`) and are **not** standalone-valid TS — do not lint/typecheck/execute them directly.
 
@@ -98,6 +96,6 @@ Top-level config lives at the repo root:
 - **`tsconfig.json`** — solution file referencing `tsconfig.app.json` (browser, `src`), `tsconfig.node.json` (node, `vite.config.ts`), and `tsconfig.server.json` (node, `server`). All enforce the compiler flags in rule 7 (none sets `"strict": true`). Because `tsconfig.server.json` is referenced, `tsc -b` (used by `npm run build` and CI) now type-checks `server/` too.
 - **`playwright.config.ts`** — `testDir: ./e2e`, `baseURL: http://localhost:5180`, `webServer` auto-runs `npm run dev`; chromium project; CI retries.
 - **`index.html`** — Vite entry HTML; mounts `#root`, loads `/src/main.tsx`.
-- **`Dockerfile`** — multi-stage (deps → build → runtime) on `node:22-alpine`; builds `dist/`, copies `server/`, runs `node --import tsx server/index.ts`, exposes 3001, `/health` healthcheck.
+- **`Dockerfile`** — multi-stage (deps → build → runtime) on `node:24-alpine`; builds `dist/`, copies `server/`, runs `node --import tsx server/index.ts`, exposes 3001, `/health` healthcheck. `package.json` `engines.node` is `>=24`.
 - **`README.md`** — human getting-started guide and POC-authoring walkthrough.
 - **`ARCHITECTURE.md`** — design philosophy: POC model, frontend/backend bridge, scaffolding, styling, state, deployment.

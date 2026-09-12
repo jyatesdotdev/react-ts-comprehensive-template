@@ -1,10 +1,12 @@
 # Tutorial: Testing (Unit & E2E)
 
-This project uses **Vitest** for unit testing and **Playwright** for end-to-end (E2E) and visual regression testing.
+This project uses **Vitest** for unit testing and **Playwright** for end-to-end (E2E) and render-health screenshot captures.
 
 ## 1. Unit Testing (Vitest)
 
 Unit tests are used for testing individual components and functions in isolation. These files typically end in `.test.tsx` or `.spec.tsx`.
+
+Vitest enforces an **80%** coverage gate for lines, functions, branches, and statements (`vitest.config.ts`). `src/config/**` is excluded from coverage. `npm test` runs `vitest run --coverage`. Do not set `coverage.all`.
 
 ### Creating a Unit Test
 Example: `src/components/MyComponent.test.tsx`
@@ -24,7 +26,7 @@ describe('MyComponent', () => {
 
 ### Running Unit Tests
 ```bash
-# Run all tests once
+# Run all tests once (includes coverage)
 npm run test
 
 # Run tests in watch mode
@@ -36,6 +38,14 @@ npm run test:watch
 ## 2. End-to-End Testing (Playwright)
 
 E2E tests verify the entire user journey by interacting with the application in a real browser. E2E tests are located in the `e2e/` directory.
+
+Playwright's `webServer` config auto-starts `npm run dev` (Vite on port 5180, which also starts the Hono backend). You do not need to start the dev server yourself unless you want to reuse an already-running instance locally (`reuseExistingServer` is enabled outside CI).
+
+Install browsers once per machine:
+
+```bash
+npx playwright install
+```
 
 ### Creating an E2E Test
 Example: `e2e/navigation.spec.ts`
@@ -56,10 +66,8 @@ test('user can navigate to the new POC', async ({ page }) => {
 ```
 
 ### Running E2E Tests
-**Note:** Ensure the dev server is running (`npm run dev`) before executing E2E tests.
-
 ```bash
-# Run all E2E tests
+# Run all E2E tests (Playwright starts npm run dev)
 npm run test:e2e
 
 # Run with UI mode
@@ -68,15 +76,17 @@ npx playwright test --ui
 
 ---
 
-## 3. Screenshot/Visual Testing
+## 3. Screenshot / Render-Health Captures
 
-We use a specialized Playwright script to verify UI consistency across all POCs.
+`npm run test:screenshots` takes full-page screenshots of each path in `e2e/screenshots.spec.ts` `POC_PATHS` and writes them to `e2e/screenshots/`. These are **render-health captures overwritten each run**, not visual regression tests — Playwright does not diff pixels against a baseline. The real assertion is that the page loads (h1 visible) without console errors.
+
+Keep `POC_PATHS` in sync by hand when adding a POC; it is not derived from `POC_CONFIG`.
 
 ### Running Screenshot Tests
 ```bash
 npm run test:screenshots
 ```
-This will generate/verify screenshots located in `e2e/screenshots/`.
+This overwrites PNGs in `e2e/screenshots/` on every run.
 
 ---
 
@@ -84,4 +94,3 @@ This will generate/verify screenshots located in `e2e/screenshots/`.
 -   [Vitest Documentation](https://vitest.dev/guide/)
 -   [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 -   [Playwright Documentation](https://playwright.dev/docs/intro)
--   [Playwright Visual Comparisons](https://playwright.dev/docs/test-snapshots)

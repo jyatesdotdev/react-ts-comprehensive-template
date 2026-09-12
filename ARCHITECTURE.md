@@ -17,8 +17,8 @@ Vite is configured as a transparent proxy. Any request to `/api/*` or `/ws` is a
 ### 3. Automated Scaffolding
 The `npm run create-poc` command uses templates found in `scripts/templates/` to generate:
 - A new React component with styled-components and Tailwind.
-- A matching Hono route module.
-- Automated registration in the frontend config and backend router.
+- Automated registration in the frontend config (`src/config/pocs.ts`).
+- A matching Hono route module **only** when `--backend`/`-b` is passed or the type is `todo`, `api`, or `websocket` — then it also registers the module in `server/routes.ts`.
 
 ## Design Patterns
 
@@ -29,7 +29,7 @@ We use a hybrid approach for styling:
 
 ### State Management
 - **Local State**: React `useState` and `useRef` are preferred for isolated POCs.
-- **Server State**: POCs that require persistence (like the `Todo List`) interact with the Hono backend via standard REST patterns.
+- **Server State**: POCs that talk to the backend (like the `Todo List`) use standard REST patterns against an **in-memory** Hono module that resets on server restart — POC-scope only, not durable storage.
 
 ## Deployment & Production
 While designed for local research, the project can be built into a static frontend (`dist/`) and a standalone Hono server. In production, the Hono server can be configured to serve the static assets from the `dist/` folder.

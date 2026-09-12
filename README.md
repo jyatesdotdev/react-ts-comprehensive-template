@@ -57,21 +57,24 @@ react-ts-template/
 Adding a new feature or research experiment is now automated:
 
 ### The Easy Way (Automated)
-Run the following command to generate a new POC with both a frontend component and a backend module, and automatically register them:
+Run the following command to generate a new POC, register it in the frontend config, and (when requested) scaffold a backend module:
 
 ```bash
-# Create a basic POC
+# Create a basic frontend-only POC
 npm run create-poc "My New Feature"
 
-# Create a WebGL-based POC
+# Create a WebGL-based POC (still frontend-only unless --backend is passed)
 npm run create-poc "New Graphics Exp" webgl
+
+# Backend is generated for --backend/-b, or automatically for types todo, api, websocket
+npm run create-poc "Data Grid" api --backend
 ```
 
 This command will:
-1.  Create `src/pages/pocs/MyNewFeature.tsx` (using the basic or WebGL template).
+1.  Create `src/pages/pocs/MyNewFeature.tsx` (using the selected template).
 2.  Register the POC in `src/config/pocs.ts` (with auto-import and routing).
-3.  Create a backend module in `server/pocs/my-new-feature.ts`.
-4.  Register the backend route in `server/routes.ts`.
+3.  Create a backend module in `server/pocs/<id>.ts` **only** if you pass `--backend`/`-b` or the type is `todo`, `api`, or `websocket`.
+4.  Register that backend route in `server/routes.ts` when a backend is generated.
 
 ### The Manual Way (Customizing)
 

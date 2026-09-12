@@ -15,7 +15,7 @@ describe('Navbar', () => {
     renderNavbar()
     const btn = screen.getByRole('button', { name: /Experiments/i })
     fireEvent.click(btn)
-    expect(screen.getByText('Ralph Experiment')).toBeInTheDocument()
+    expect(screen.getByText('WebGL')).toBeInTheDocument()
     fireEvent.click(btn)
   })
 
@@ -28,6 +28,16 @@ describe('Navbar', () => {
   it('closes dropdown when selecting an item', () => {
     renderNavbar()
     fireEvent.click(screen.getByRole('button', { name: /Experiments/i }))
-    fireEvent.click(screen.getByText('Ralph Experiment'))
+    fireEvent.click(screen.getByText('WebGL'))
+  })
+
+  it('marks Experiments active on a POC route', () => {
+    render(
+      <MemoryRouter initialEntries={['/pocs/todo']}>
+        <Navbar />
+      </MemoryRouter>
+    )
+    fireEvent.click(screen.getByRole('button', { name: /Experiments/i }))
+    expect(screen.getByText('Todo List')).toBeInTheDocument()
   })
 })

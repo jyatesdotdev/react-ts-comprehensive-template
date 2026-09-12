@@ -20,6 +20,8 @@ describe('Home', () => {
     renderHome()
     fireEvent.click(screen.getByRole('button', { name: /Graphics/i }))
     // After filtering, Graphics POCs should still be visible
-    expect(screen.getByText('Ralph Experiment')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'WebGL' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /All Experiments/i }))
+    expect(screen.getByText('Todo List')).toBeInTheDocument()
   })
 })

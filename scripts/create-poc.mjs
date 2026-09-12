@@ -80,6 +80,18 @@ if (type === 'webgl') {
     .replace(new RegExp(`title=".*"`, 'i'), `title="${pocName}"`);
 }
 
+const generatesBackend = withBackend || type === 'todo' || type === 'api' || type === 'websocket';
+if (generatesBackend) {
+  if (!/pocId\s*=/.test(frontendTemplate)) {
+    frontendTemplate = frontendTemplate.replace(
+      /(<POCLayout[\s\S]*?)(\n\s*>)/,
+      `$1\n      pocId="${id}"$2`
+    );
+  }
+} else {
+  frontendTemplate = frontendTemplate.replace(/[ \t]*pocId=\{?["'][^"']*["']\}?\n?/g, '');
+}
+
 if (!fs.existsSync(filePath)) {
   fs.writeFileSync(filePath, frontendTemplate);
   console.log(`  ✅ Frontend: ${fileName}`);
@@ -169,7 +181,7 @@ if (withBackend || type === 'todo' || type === 'api' || type === 'websocket') {
 }
 
 console.log(`\n🚀 POC "${pocName}" is ready!`);
-console.log(`   🔗 Web: http://localhost:5173/pocs/${id}`);
+console.log(`   🔗 Web: http://localhost:5180/pocs/${id}`);
 if (withBackend || ['todo', 'api', 'websocket'].includes(type)) {
   console.log(`   🔗 API: http://localhost:3001/api/pocs/${id}`);
 }

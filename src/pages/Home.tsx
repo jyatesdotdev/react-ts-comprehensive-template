@@ -65,15 +65,15 @@ const CodeBlock = styled.pre.attrs({
 
 // Badge signifies the status of an experiment inline.
 // Modifying the colors allows the addition of new statuses inside the template literal.
-const Badge = styled.span.attrs<{ type?: string }>((props) => ({
+const Badge = styled.span.attrs<{ $type?: string }>((props) => ({
   className: `px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
-    props.type === 'WIP' ? 'bg-yellow-100 text-yellow-700' : 
-    props.type === 'POC' ? 'bg-blue-100 text-blue-700' : 
-    props.type === 'STABLE' ? 'bg-green-100 text-green-700' :
-    props.type === 'Template' ? 'bg-purple-100 text-purple-700' :
+    props.$type === 'WIP' ? 'bg-yellow-100 text-yellow-700' : 
+    props.$type === 'POC' ? 'bg-blue-100 text-blue-700' : 
+    props.$type === 'STABLE' ? 'bg-green-100 text-green-700' :
+    props.$type === 'Template' ? 'bg-purple-100 text-purple-700' :
     'bg-gray-100 text-gray-600'
   }`
-}))<{ type?: string }>``
+}))<{ $type?: string }>``
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = React.useState<string>('All')
@@ -93,7 +93,7 @@ export default function Home() {
 
       <Section>
         <SectionTitle>
-          <Badge type="POC">Explore</Badge> Active POCs
+          <Badge $type="POC">Explore</Badge> Active POCs
         </SectionTitle>
         
         {/* Quick Category Navigation */}
@@ -128,7 +128,7 @@ export default function Home() {
             <POCCard key={poc.id} to={poc.path}>
               <div className="flex justify-between items-start">
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{poc.name}</h3>
-                {poc.badge && <Badge type={poc.badgeType}>{poc.badge}</Badge>}
+                {poc.badge && <Badge $type={poc.badgeType}>{poc.badge}</Badge>}
               </div>
               <p className="text-gray-600 text-sm">{poc.description}</p>
               <div className="mt-auto pt-4 flex items-center text-blue-600 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
@@ -185,20 +185,20 @@ export default function Home() {
 
       <Section>
         <SectionTitle>
-          <Badge type="Template">Blueprints</Badge> Starter Templates
+          <Badge $type="Template">Blueprints</Badge> Starter Templates
         </SectionTitle>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <POCCard to="/pocs/webgl-template">
             <div className="flex justify-between items-start">
               <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">WebGL Blueprint</h3>
-              <Badge type="Template">WebGL</Badge>
+              <Badge $type="Template">WebGL</Badge>
             </div>
             <p className="text-gray-600 text-sm">A robust Three.js setup with OrbitControls, lighting, and memory-safe disposal.</p>
           </POCCard>
           <POCCard to="/pocs/template">
             <div className="flex justify-between items-start">
               <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">General Blueprint</h3>
-              <Badge type="Template">UI</Badge>
+              <Badge $type="Template">UI</Badge>
             </div>
             <p className="text-gray-600 text-sm">Clean starter for UI-heavy experiments using Tailwind and Styled Components.</p>
           </POCCard>
@@ -228,13 +228,14 @@ export default function Home() {
                 <p className="text-white text-xs font-mono">websocket <span className="text-gray-500">(Real-time)</span></p>
                 <p className="text-white text-xs font-mono">webrtc <span className="text-gray-500">(P2P)</span></p>
                 <p className="text-white text-xs font-mono">api <span className="text-gray-500">(REST)</span></p>
+                <p className="text-white text-xs font-mono">todo <span className="text-gray-500">(CRUD)</span></p>
               </div>
               <div className="bg-white/5 p-4 rounded-xl border border-white/10">
                 <p className="text-gray-400 text-[10px] font-bold uppercase mb-2">What it does:</p>
                 <ul className="text-[11px] text-gray-300 space-y-1 list-disc list-inside">
                   <li>Creates React Component</li>
-                  <li>Generates Hono Backend Module</li>
-                  <li>Wires up API routes</li>
+                  <li>Generates Hono backend only with --backend/-b or type todo|api|websocket</li>
+                  <li>Wires up API routes when a backend is generated</li>
                   <li>Updates Navbar & Routing</li>
                 </ul>
               </div>

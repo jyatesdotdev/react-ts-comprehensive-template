@@ -20,7 +20,7 @@ npm run create-poc "Data Grid" api --backend
 ### What this does:
 1.  **Generates Frontend Component**: Creates `src/pages/pocs/MyNewFeature.tsx` based on the selected template.
 2.  **Registers Routing**: Updates `src/config/pocs.ts` to include your new POC, enabling lazy-loading and adding it to the Navbar.
-3.  **Generates Backend (Optional)**: If `--backend` is used, creates `server/pocs/my-new-feature.ts` and mounts it in `server/routes.ts`.
+3.  **Generates Backend (Optional)**: A backend module is created only when `--backend`/`-b` is passed **or** the type is `todo`, `api`, or `websocket`. In those cases it writes `server/pocs/my-new-feature.ts` and mounts it in `server/routes.ts`. Types like `basic`, `webgl`, and `webrtc` stay frontend-only unless you add `--backend`.
 
 ---
 
@@ -84,7 +84,7 @@ The scaffolding tool uses specialized templates found in `scripts/templates/fron
 -   **WebSocket**: Real-time messaging setup connecting to the Hono backend.
 -   **WebRTC**: Local loopback peer-to-peer communication example.
 -   **API**: Standard REST fetching pattern with loading and error states.
--   **Todo**: Complex state management example with backend persistence.
+-   **Todo**: Complex state management example with an in-memory Hono backend that resets on restart.
 
 ---
 

@@ -33,14 +33,14 @@ const Controls = styled.div.attrs({
 })``
 
 // Button enables starting the camera or initiating calls.
-// Adjusting the dynamic template literal allows switching colors based on the 'variant' prop.
-const Button = styled.button.attrs<{ variant?: 'primary' | 'secondary' | 'danger' }>({
-  className: (props) => `px-6 py-2 rounded-lg font-bold transition-all shadow-md disabled:opacity-50 ${
-    props.variant === 'danger' ? 'bg-red-600 text-white hover:bg-red-700' :
-    props.variant === 'secondary' ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' :
+// Adjusting the dynamic template literal allows switching colors based on the '$variant' prop.
+const Button = styled.button.attrs<{ $variant?: 'primary' | 'secondary' | 'danger' }>((props) => ({
+  className: `px-6 py-2 rounded-lg font-bold transition-all shadow-md disabled:opacity-50 ${
+    props.$variant === 'danger' ? 'bg-red-600 text-white hover:bg-red-700' :
+    props.$variant === 'secondary' ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' :
     'bg-blue-600 text-white hover:bg-blue-700'
   }`
-})<{ variant?: 'primary' | 'secondary' | 'danger' }>``
+}))<{ $variant?: 'primary' | 'secondary' | 'danger' }>``
 
 export default function WebRTCPOC() {
   const [localStream, setLocalStream] = useState<MediaStream | null>(null)
@@ -49,6 +49,7 @@ export default function WebRTCPOC() {
   
   const localVideoRef = useRef<HTMLVideoElement>(null)
   const remoteVideoRef = useRef<HTMLVideoElement>(null)
+  const localStreamRef = useRef<MediaStream | null>(null)
   const pc1 = useRef<RTCPeerConnection | null>(null)
   const pc2 = useRef<RTCPeerConnection | null>(null)
 
@@ -56,6 +57,7 @@ export default function WebRTCPOC() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       setLocalStream(stream)
+      localStreamRef.current = stream
       if (localVideoRef.current) localVideoRef.current.srcObject = stream
       setStatus('Local stream started')
     } catch (err) {
@@ -107,17 +109,33 @@ export default function WebRTCPOC() {
     }
   }
 
-  const stop = () => {
-    localStream?.getTracks().forEach(track => track.stop())
+  const teardownMedia = () => {
+    localStreamRef.current?.getTracks().forEach(track => track.stop())
+    localStreamRef.current = null
+    if (localVideoRef.current) localVideoRef.current.srcObject = null
+    if (remoteVideoRef.current) remoteVideoRef.current.srcObject = null
     pc1.current?.close()
     pc2.current?.close()
+    pc1.current = null
+    pc2.current = null
+  }
+
+  const stop = () => {
+    teardownMedia()
     setLocalStream(null)
     setRemoteStream(null)
     setStatus('Idle')
   }
 
   useEffect(() => {
-    return () => stop()
+    return () => {
+      localStreamRef.current?.getTracks().forEach(track => track.stop())
+      localStreamRef.current = null
+      pc1.current?.close()
+      pc2.current?.close()
+      pc1.current = null
+      pc2.current = null
+    }
   }, [])
 
   return (
@@ -126,7 +144,6 @@ export default function WebRTCPOC() {
       subtitle="Peer-to-peer communication demo (using a local loopback)."
       badge="POC"
       badgeType="POC"
-      pocId="webrtc"
     >
       <div className="max-w-4xl mx-auto">
         <VideoGrid>
@@ -155,7 +172,7 @@ export default function WebRTCPOC() {
           <Button onClick={call} disabled={!localStream || !!remoteStream}>
             2. Initiate Call
           </Button>
-          <Button variant="danger" onClick={stop} disabled={!localStream}>
+          <Button $variant="danger" onClick={stop} disabled={!localStream}>
             Reset
           </Button>
         </Controls>

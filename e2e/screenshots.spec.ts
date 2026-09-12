@@ -5,15 +5,13 @@ import { test, expect } from '@playwright/test';
 // When you add or remove a POC, update this array so it keeps full coverage.
 const POC_PATHS = [
   '/',
-  '/pocs/ralph-experiment',
   '/pocs/webgl',
   '/pocs/webgl-template',
   '/pocs/todo',
   '/pocs/api',
   '/pocs/webrtc',
   '/pocs/websocket',
-  '/pocs/template',
-  '/pocs/dashboard-test'
+  '/pocs/template'
 ];
 
 test.beforeAll(async () => {
