@@ -2,6 +2,8 @@
 
 A modern, extensible template for rapid prototyping and technical Proof of Concepts (POCs).
 
+**Supported platforms:** Linux (CI + Docker) and macOS (CI). Windows is not supported or tested.
+
 ## Features
 
 - **React 19** with TypeScript

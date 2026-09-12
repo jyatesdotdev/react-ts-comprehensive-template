@@ -90,6 +90,12 @@ This overwrites PNGs in `e2e/screenshots/` on every run.
 
 ---
 
+## 4. CI platforms
+
+GitHub Actions (`ci.yml`) runs lint, `npm run build`, Vitest coverage, and Playwright Chromium on **ubuntu-latest** and **macos-latest** (`fail-fast: false`). Security scanning stays Linux-only. Windows is unsupported.
+
+---
+
 ## Reference Links
 -   [Vitest Documentation](https://vitest.dev/guide/)
 -   [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)

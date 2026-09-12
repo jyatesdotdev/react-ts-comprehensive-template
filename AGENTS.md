@@ -67,7 +67,7 @@ Package manager: **npm** (`package-lock.json`).
 | [`scripts/templates/backend/`](./scripts/templates/backend/) | Hono backend module templates (basic + todo CRUD) with `__NAME__`/`__ID__` tokens the `create-poc` scaffolder fills in. |
 | [`e2e/`](./e2e/) | Playwright E2E + full-page screenshot specs; baseURL 5180, auto-starts `npm run dev`. `POC_PATHS` in `screenshots.spec.ts` is a **manually maintained** hardcoded list, not derived from `POC_CONFIG` — `src/pocRegistry.test.ts` fails if it drifts. |
 | [`docs/`](./docs/) | Human-facing tutorials (adding POCs, backend integration, testing) that must stay in sync with real code. |
-| [`.github/workflows/`](./.github/workflows/) | GitHub Actions CI gates (lint, `npm run build`, vitest+coverage, Playwright E2E) and security scanning (`security.yml`: `npm audit` + Trivy + CodeQL). Node **24**. |
+| [`.github/workflows/`](./.github/workflows/) | GitHub Actions CI gates (lint, `npm run build`, vitest+coverage, Playwright E2E) on **ubuntu-latest and macos-latest**, plus security scanning (`security.yml`: `npm audit` + Trivy + CodeQL, Linux only). Node **24**. Windows is unsupported. |
 
 ## Global rules & conventions
 
